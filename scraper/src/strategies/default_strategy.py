@@ -2,7 +2,6 @@
 Default Strategy
 """
 
-from lxml.etree import XPath
 from .abstract_strategy import AbstractStrategy
 from .anchor import Anchor
 from .hierarchy import Hierarchy
@@ -26,7 +25,7 @@ class DefaultStrategy(AbstractStrategy):
 
     def select(self, path):
         """Select an element in the current DOM using specified CSS selector"""
-        return XPath(path)(self.dom) if len(path) > 0 else []
+        return self.dom.xpath(path) if len(path) > 0 else []
 
     def get_records_from_response(self, response):
         """

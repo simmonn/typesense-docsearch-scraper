@@ -2,6 +2,8 @@
 from .abstract import get_strategy
 import lxml.html
 from scrapy.http import TextResponse
+from lxml import etree
+
 
 
 class TestGetRecordsFromDom:
@@ -505,3 +507,33 @@ class TestGetRecordsFromDom:
 
         # Then
         assert len(actual) == 3
+
+    def test_etree_parse_html(self):
+        import requests
+        from lxml import etree
+        from bs4 import BeautifulSoup
+        response = requests.get('https://docs.rongcloud.net/guides/realtime-chat/intro-chat')
+        response.encoding = response.apparent_encoding
+        html = response.text
+        soup = BeautifulSoup(html, 'html.parser')
+        compressed_html = ' '.join(soup.prettify().split())
+        xpath = etree.HTML(compressed_html).xpath("//div[contains(@class, 'theme-doc-markdown')]//h1")
+        # xpath = etree.HTML(html).xpath("//div[contains(@class, 'theme-doc-markdown')]//h1")
+        print(xpath)
+
+    def test_etree_parse_html2(self):
+        import requests
+        from lxml import etree
+        from bs4 import BeautifulSoup
+        response = requests.get('http://docs.rongcloud.net/guides/sms/intro-sms')
+        response.encoding = response.apparent_encoding
+        html = response.text
+
+        parser = etree.HTMLParser(remove_blank_text=True,remove_comments=True)
+        tree = etree.fromstring(html, parser)
+
+        # 将树转换回 HTML 字符串
+        compressed_html = etree.tostring(tree, method='html', encoding='utf-8').decode('utf-8')
+        xpath = etree.HTML(compressed_html).xpath("//div[contains(@class, 'theme-doc-markdown')]//h1")
+        print(xpath)
+

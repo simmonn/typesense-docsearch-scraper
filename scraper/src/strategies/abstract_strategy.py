@@ -1,9 +1,10 @@
 from lxml.cssselect import CSSSelector
 import lxml
+from lxml import etree
 import re
 import json
 import html
-
+from bs4 import BeautifulSoup
 """
 Abstract Strategy
 """
@@ -38,9 +39,12 @@ class AbstractStrategy:
         """Get the DOM representation of the webpage"""
         try:
             body = response.body.decode(response.encoding)
-            result = lxml.html.fromstring(body)
+            soup = BeautifulSoup(body, 'html.parser')
+            compressed_html = ' '.join(soup.prettify().split())
+            result = etree.HTML(compressed_html)
         except (UnicodeError, ValueError):
-            result = lxml.html.fromstring(response.body)
+            html = response.text
+            result = etree.HTML(html)
 
         return result
 

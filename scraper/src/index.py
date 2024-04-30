@@ -93,7 +93,7 @@ def run_config(config):
 
     process = CrawlerProcess({
         'LOG_ENABLED': '1',
-        'LOG_LEVEL': 'ERROR',
+        'LOG_LEVEL': 'DEBUG',
         'USER_AGENT': config.user_agent,
         'DOWNLOADER_MIDDLEWARES': {DOWNLOADER_MIDDLEWARES_PATH: 900},
         # Need to be > 600 to be after the redirectMiddleware
