@@ -147,7 +147,7 @@ pipenv install
 pipenv shell
 
 # Build a new version of the base Docker container - ONLY NEEDED WHEN WE CHANGE DEPENDENCIES
-export SCRAPER_BASE_VERSION="1.0.1" # Only need to change this when we update dependencies
+export SCRAPER_BASE_VERSION="1.0.0" # Only need to change this when we update dependencies
 docker buildx build -f ./scraper/dev/docker/Dockerfile.base -t simmonn/docsearch-scraper-base:${SCRAPER_BASE_VERSION} .
 docker push simmonn/docsearch-scraper-base:${SCRAPER_BASE_VERSION}
 docker tag simmonn/docsearch-scraper-base:${SCRAPER_BASE_VERSION} simmonn/docsearch-scraper-base:latest
