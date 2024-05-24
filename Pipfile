@@ -18,6 +18,7 @@ algoliasearch = ">=2.0,<3.0"
 typesense = "==0.10.0"
 python-keycloak-client = "==0.2.3"
 beautifulsoup4 = "4.12.3"
+html5lib = "*"
 
 [dev-packages]
 pylint = ">=2.3.1"

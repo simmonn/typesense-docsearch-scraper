@@ -39,9 +39,8 @@ class AbstractStrategy:
         """Get the DOM representation of the webpage"""
         try:
             body = response.body.decode(response.encoding)
-            soup = BeautifulSoup(body, 'html.parser')
-            compressed_html = ' '.join(soup.prettify().split())
-            result = etree.HTML(compressed_html)
+            soup = BeautifulSoup(body, 'html5lib')
+            result = etree.HTML(soup.prettify())
         except (UnicodeError, ValueError):
             html = response.text
             result = etree.HTML(html)
